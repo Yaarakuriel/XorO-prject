@@ -17,6 +17,9 @@ class Game():
             except(ValueError):
                 value= input('please, provide a number from 1 to 8\n')
                 n = 1
+            if nval < 1 or nval > 8:
+                n = 1
+                value= input('please, provide a number from 1 to 8\n')
         c = 1
         while c == 1:
             if nval in self.vector:
@@ -52,7 +55,6 @@ class Game():
             self.win = True
         elif self.board[3] == self.board[6] == self.board[9]:
             self.win = True
-            
     def wining_note(self):
         if self.player == True:
             print('Congratulations! You won the game. see you on the next game.')  
