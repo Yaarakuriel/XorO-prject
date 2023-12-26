@@ -3,13 +3,14 @@ import random
 class Game():
     def __init__(self):
         self.vector= [1,2,3,4,5,6,7,8,9]
-        self.board = ['','','','','','','','','']
-        self.win= False
+        self.board = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
+        self.win= True
         #player, True-user, False-computer
         self.player = True
     
     def show_board(self):
         b = f"""  {self.board[0]}  |  {self.board[1]}  |  {self.board[2]}  \n\n________________\n\n  {self.board[3]}  |  {self.board[4]}  |  {self.board[5]}  \n\n________________\n\n  {self.board[6]}  |  {self.board[7]}  |  {self.board[8]}  \n"""
+        print(b)
         
     def choice(self,value):
         n = 1
@@ -18,9 +19,11 @@ class Game():
                 nval= int(value)
                 n = 0
             except(ValueError):
+                print('valueerror')
                 value= input('please, provide a number from 1 to 8\n')
                 n = 1
             if nval < 1 or nval > 8:
+                print('numbering')
                 n = 1
                 value= input('please, provide a number from 1 to 8\n')
         c = 1
@@ -35,10 +38,11 @@ class Game():
         value = input('please, type the number  \n')
         value = random.choice(self.vector)
         self.choice(value)
+        print(self.vector)
         self.board[value-1]='X'
         self.player = True
         self.show_board()
-        self.win()
+        #self.win()
         
     
     def comp_req(self):
@@ -46,8 +50,9 @@ class Game():
         self.choice(value)
         self.board[value-1]='O'
         self.player = False
+        print('the comp chose:')
         self.show_board()
-        self.win()
+        #self.win()
         
         
     def win(self):

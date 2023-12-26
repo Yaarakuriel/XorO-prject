@@ -8,4 +8,5 @@ print(board)
 
 XorO= Game()
 XorO.user_req()
+XorO.comp_req()
     
