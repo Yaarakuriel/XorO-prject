@@ -42,7 +42,7 @@ class Game():
         self.board[int(self.value)-1]='X'
         self.player = True
         self.show_board()
-        #self.win()
+        self.victory()
         
     
     def comp_req(self):
@@ -52,10 +52,10 @@ class Game():
         self.player = False
         print('the comp chose:')
         self.show_board()
-        #self.win()
+        self.victory()
         
         
-    def win(self):
+    def victory(self):
         #rows
         if self.board[1] == self.board[2] == self.board[3]:
             self.win = True
