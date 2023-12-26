@@ -5,7 +5,6 @@ board = f"""  {vector[0]}  |  {vector[1]}  |  {vector[2]}  \n\n________________\
 print(opening)
 print(board)
 
-vector = [ '','', '','' ,'' ,'' ,'' ,'' ,'']
 
 XorO= Game()
 XorO.user_req()
