@@ -4,7 +4,7 @@ class Game():
     def __init__(self):
         self.vector= [1,2,3,4,5,6,7,8,9]
         self.board = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
-        self.win= True
+        self.win= False
         #player, True-user, False-computer
         self.player = True
     
@@ -29,7 +29,7 @@ class Game():
         c = 1
         while c == 1:
             if nval in self.vector:
-                self.vector.remove(nval)
+                self.vector.remove(nval+1)
                 c = 0
             else:
                 value = input('this position is taken. please pick a different number\n')
@@ -58,22 +58,30 @@ class Game():
     def win(self):
         #rows
         if self.board[1] == self.board[2] == self.board[3]:
+            self.win = True
             self.wining_note()
         elif self.board[4] == self.board[5] == self.board[6]:
+            self.win = True
             self.wining_note()
         elif self.board[7] == self.board[8] == self.board[9]:
+            self.win = True
             self.wining_note()
         #cross
         elif self.board[1] == self.board[5] == self.board[9]:
+            self.win = True
             self.wining_note()
         elif self.board[3] == self.board[5] == self.board[7]:
+            self.win = True
             self.wining_note
         #columns
         elif self.board[1] == self.board[4] == self.board[7]:
+            self.win = True
             self.wining_note()
         elif self.board[2] == self.board[5] == self.board[8]:
+            self.win = True
             self.wining_note()
         elif self.board[3] == self.board[6] == self.board[9]:
+            self.win = True
             self.wining_note()
             
     def wining_note(self):
