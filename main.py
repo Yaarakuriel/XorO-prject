@@ -10,4 +10,5 @@ XorO= Game()
 while XorO.win == False:
     XorO.user_req()
     XorO.comp_req()
+
     

@@ -29,14 +29,14 @@ class Game():
         c = 1
         while c == 1:
             if nval in self.vector:
-                self.vector.remove(nval+1)
+                self.vector.remove(nval)
                 c = 0
             else:
                 value = input('this position is taken. please pick a different number\n')
+                c = 1
     
     def user_req(self):
         value = input('please, type the number  \n')
-        value = random.choice(self.vector)
         self.choice(value)
         print(self.vector)
         self.board[value-1]='X'
