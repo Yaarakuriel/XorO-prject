@@ -9,6 +9,9 @@ print(board)
 XorO= Game()
 while XorO.win == False:
     XorO.user_req()
+    if XorO.win == True:
+        break
     XorO.comp_req()
-
+    if XorO.win == True:
+        break
     

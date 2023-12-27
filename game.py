@@ -57,30 +57,30 @@ class Game():
         
     def victory(self):
         #rows
-        if self.board[1] == self.board[2] == self.board[3]:
+        if self.board[1] == self.board[2] == self.board[0]!= ' ':
             self.win = True
             self.wining_note()
-        elif self.board[4] == self.board[5] == self.board[6]:
+        elif self.board[4] == self.board[5] == self.board[3]!= ' ':
             self.win = True
             self.wining_note()
-        elif self.board[7] == self.board[8] == self.board[9]:
+        elif self.board[7] == self.board[8] == self.board[6]!= ' ':
             self.win = True
             self.wining_note()
         #cross
-        elif self.board[1] == self.board[5] == self.board[9]:
+        elif self.board[0] == self.board[4] == self.board[8]!= ' ':
             self.win = True
             self.wining_note()
-        elif self.board[3] == self.board[5] == self.board[7]:
+        elif self.board[2] == self.board[4] == self.board[6]!= ' ':
             self.win = True
             self.wining_note
         #columns
-        elif self.board[1] == self.board[4] == self.board[7]:
+        elif self.board[0] == self.board[3] == self.board[6]!= ' ':
             self.win = True
             self.wining_note()
-        elif self.board[2] == self.board[5] == self.board[8]:
+        elif self.board[1] == self.board[4] == self.board[7]!= ' ':
             self.win = True
             self.wining_note()
-        elif self.board[3] == self.board[6] == self.board[9]:
+        elif self.board[2] == self.board[5] == self.board[8]!= ' ':
             self.win = True
             self.wining_note()
             
