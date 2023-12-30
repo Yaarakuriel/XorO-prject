@@ -1,93 +1,106 @@
 import random
-
+#after fixing, generalize for NxN board
 class Game():
     def __init__(self):
-        self.vector= [1,2,3,4,5,6,7,8,9]
-        self.board = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
-        self.win= False
-        #player, True-user, False-computer
-        self.player = True
-        self.value = 0
-    
-    def show_board(self):
-        b = f"""  {self.board[0]}  |  {self.board[1]}  |  {self.board[2]}  \n\n________________\n\n  {self.board[3]}  |  {self.board[4]}  |  {self.board[5]}  \n\n________________\n\n  {self.board[6]}  |  {self.board[7]}  |  {self.board[8]}  \n"""
-        print(b)
+        self.vector = list(range(1, 10))
+        self.board = [[' ' for i in range(3)] for i in range(3) ]
+        self.moves=0
+        self.end=False
         
-    def choice(self):
-        n = 1
-        while n == 1:
-            try:
-                nval= int(self.value)
-            except(ValueError):
-                print('valueerror')
-                self.value= input('please, provide a number from 1 to 9\n')
-                n = 1
-            if nval < 1 or nval > 9:
-                print('numbering')
-                n = 1
-                self.value= input('please, provide a number from 1 to 9\n')
-            if nval in self.vector:
-                self.vector.remove(nval)
-                n = 0
+    def opening(self):
+        print('Welocme to X Mix Drix Game! You will play X. the numbers are the locations on the board as will be presented below. pick a number and let\'s play')
+        for i in range(3):
+            for j in range(3):
+                print(f"  {self.vector[i*3+j]}  ",end="") 
+                if j!=2:
+                    print(" | ",end="")
+            if i!=2:
+                print('\n_______________________\n')
             else:
-                self.value = input('this position is taken. please pick a different number\n')
-                n = 1
-    
-    def user_req(self):
-        value = input('please, type the number  \n')
-        self.value = value
-        self.choice()
-        print(self.vector)
-        print(f'the value is{self.value}')
-        self.board[int(self.value)-1]='X'
-        self.player = True
-        self.show_board()
-        self.victory()
+                print('\n')
         
+    def show_board(self):
+        for i in range(3):
+            for j in range(3):
+                print(f"  {self.board[i][j]} ",end="")
+                if j!=2:
+                    print(" | ",end="")
+            print('\n________________________\n')
+            
+    def choice(self,val):
+        if val in [i for i in range(1,10)] and val in self.vector:
+            return True
+        return False
     
-    def comp_req(self):
-        self.value = random.choice(self.vector)
-        self.choice()
-        self.board[int(self.value)-1]='O'
-        self.player = False
-        print('the comp chose:')
+    def req(self):
+        val=None
+        self.moves+=1
+
+        user=self.moves%2==1
+        if user:
+            value = int(input('please, type the number  \n'))
+            val='X'
+            check=self.choice(value)
+            if not check:
+                print("not an int or not in [1,2,3,4,5,6,7,8,9],or taken, try again:")
+                self.moves-=1
+                self.req()
+        else:
+            value = random.choice(self.vector)
+            val='O'
+          
+            # Adjust index to be within the valid range
+        index = int(value) - 1
+        row, col = divmod(index, 3)
+
+        self.board[row][col] = val
+        self.vector.remove(value)  
+
         self.show_board()
-        self.victory()
+        self.end=self.victory()
+        if self.end:
+            self.wining_note(user)
         
         
     def victory(self):
+        if self.moves<5:
+            return False
+        
         #rows
-        if self.board[1] == self.board[2] == self.board[0]!= ' ':
-            self.win = True
-            self.wining_note()
-        elif self.board[4] == self.board[5] == self.board[3]!= ' ':
-            self.win = True
-            self.wining_note()
-        elif self.board[7] == self.board[8] == self.board[6]!= ' ':
-            self.win = True
-            self.wining_note()
+        for i in range(3):
+            row=self.board[i]
+            if all(i == row[0] for i in row) and row[0]!=" ":
+                return True
+
         #cross
-        elif self.board[0] == self.board[4] == self.board[8]!= ' ':
-            self.win = True
-            self.wining_note()
-        elif self.board[2] == self.board[4] == self.board[6]!= ' ':
-            self.win = True
-            self.wining_note
+        diagonal1 = [self.board[i][i] for i in range(3)]
+        diagonal2 = [self.board[i][2 - i] for i in range(3)]
+
+        if all(element == diagonal1[0] and element != " " for element in diagonal1):
+            return True
+
+        if all(element == diagonal2[0] and element != " " for element in diagonal2):
+            return True
         #columns
-        elif self.board[0] == self.board[3] == self.board[6]!= ' ':
-            self.win = True
-            self.wining_note()
-        elif self.board[1] == self.board[4] == self.board[7]!= ' ':
-            self.win = True
-            self.wining_note()
-        elif self.board[2] == self.board[5] == self.board[8]!= ' ':
-            self.win = True
-            self.wining_note()
+        column=[]
+        for j in range(3):
+            for i in range(3):
+                column.append(self.board[i][j])
+            if all(i == column[0] for i in column) and column[0]!=" ":
+                return True
+            column=[]
+        
+        return False
             
-    def wining_note(self):
-        if self.player == True:
+    def wining_note(self,win):
+        if win:
             print('Congratulations! You won the game. see you on the next game.')  
         else:
             print('You lost! maybe next time : - )')    
         
-
+    
+    def active_game(self):
+        self.opening()
+        while not self.end :
+            self.req()
+    

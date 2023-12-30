@@ -1,0 +1,20 @@
+class MyBoard:
+    def __init__(self):
+        # Initialize a sample board
+        self.board = [
+            ['X', 'O', 'X'],
+            ['O', 'X', 'O'],
+            ['X', 'O', 'X']
+        ]
+
+    def show_board(self):
+        for i in range(3):
+            print(" | ".join(map(str, self.board[i])))
+            if i < 2:
+                print("___________")
+
+# Create an instance of the class
+my_board_instance = MyBoard()
+
+# Call the show_board method to display the sample board
+my_board_instance.show_board()
